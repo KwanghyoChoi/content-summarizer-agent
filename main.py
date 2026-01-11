@@ -299,12 +299,14 @@ def main():
                 print("\n[ERROR] ANTHROPIC_API_KEY 환경변수가 설정되지 않았습니다.")
                 print("   프롬프트만 생성합니다...\n")
 
-        # 노트 생성
+        # 노트 생성 (검증 루프 포함)
         results = generate_all_notes(
             raw_path,
             args.output_dir,
             api_key,
-            formats
+            formats,
+            use_verification=True,  # Level 1: Self-Critique
+            source_type=source_name
         )
 
         # 결과 출력
