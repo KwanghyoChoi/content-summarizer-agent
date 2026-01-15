@@ -21,8 +21,24 @@
 ```markdown
 # [콘텐츠 제목] - 쉬운 노트
 
-<!-- YouTube/동영상인 경우 임베딩 (높이 720px) -->
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/[VIDEO_ID]" frameborder="0" allowfullscreen></iframe>
+<!-- YouTube/동영상인 경우 반응형 임베딩 -->
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 20px 0;">
+  <iframe
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+    src="https://www.youtube.com/embed/[VIDEO_ID]"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+  </iframe>
+</div>
+
+## 메타 정보
+- 채널/저자: [[채널명 또는 저자명]]
+
+## 태그
+#카테고리 #주제1 #주제2
+
+---
 
 ## 이 콘텐츠는요...
 [2-3문장으로 전체 내용을 쉽게 설명]

@@ -73,11 +73,20 @@ python main.py --youtube "URL" -f [선택한형식] --extract-only
 ```
 
 ### 4단계: YouTube/동영상 임베딩
-YouTube나 동영상 소스인 경우, 생성된 노트 상단에 반드시 임베딩을 추가합니다:
+YouTube나 동영상 소스인 경우, 생성된 노트 상단에 반드시 반응형 임베딩을 추가합니다:
 ```markdown
 # [제목]
 
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/[VIDEO_ID]" frameborder="0" allowfullscreen></iframe>
+<!-- 반응형 YouTube 임베딩 (16:9 비율 유지, 창 크기에 맞춤) -->
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 20px 0;">
+  <iframe
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+    src="https://www.youtube.com/embed/[VIDEO_ID]"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+  </iframe>
+</div>
 
 ## 메타 정보
 ...
@@ -111,8 +120,11 @@ Claude Code:
 1. main_topic: 주제
 2. content_type: tutorial|lecture|interview|discussion|presentation
 3. structure: [{section, timestamps, key_points}]
-4. key_concepts: 핵심 개념 목록
+4. key_concepts: 핵심 개념 목록 (옵시디언 링크용)
 5. difficulty_level: beginner|intermediate|advanced
+6. channel_author: 채널명 또는 저자명 (옵시디언 링크용)
+7. tags: 카테고리 및 주제 태그 목록 (예: ["생산성", "AI", "노트앱"])
+8. related_concepts: 관련 개념 목록 (다른 노트와 연결될 수 있는 개념)
 
 ## 원문
 [원문 텍스트]
@@ -130,6 +142,21 @@ Claude Code:
 1. 원문에 있는 내용만 포함 (환각 금지)
 2. 모든 내용에 타임스탬프/페이지 인용 필수
 3. 템플릿 형식 준수
+4. 옵시디언 링크 규칙 준수
+
+## 옵시디언 링크 규칙 (중요!)
+노트를 옵시디언에서 연결하기 위해 다음 형식을 사용하세요:
+
+1. **채널/저자 링크**: `[[채널명]]` 또는 `[[저자명]]`
+   - 예: `[[드로잉박]]`, `[[조코딩]]`, `[[노마드코더]]`
+
+2. **태그**: `#카테고리 #주제`
+   - 예: `#생산성 #AI #옵시디언 #노트앱`
+   - 영문/한글 모두 가능
+
+3. **관련 개념 링크**: `[[개념명]]`
+   - 핵심 개념, 도구, 방법론 등을 링크로
+   - 예: `[[제텔카스텐]]`, `[[AI자동화]]`, `[[PKM]]`
 
 ## 분석 결과
 [Analyst 출력 JSON]
@@ -151,6 +178,7 @@ Claude Code:
 2. 환각 탐지: 원문에 없는 내용이 추가되었는가?
 3. 인용 정확성: 타임스탬프/페이지 번호가 정확한가?
 4. 완성도: 핵심 내용이 누락되지 않았는가?
+5. 옵시디언 링크: 채널/저자, 태그, 관련 개념 링크가 올바르게 적용되었는가?
 
 ## 생성된 노트
 [Writer 출력 노트]
@@ -163,7 +191,12 @@ Claude Code:
     "score": 0-100,
     "passed": true/false (80점 이상 통과),
     "issues": ["문제점 목록"],
-    "suggestions": ["개선 제안"]
+    "suggestions": ["개선 제안"],
+    "obsidian_links": {
+        "channel_author": "[[채널명]]",
+        "tags": ["#태그1", "#태그2"],
+        "concepts": ["[[개념1]]", "[[개념2]]"]
+    }
 }
 ```
 

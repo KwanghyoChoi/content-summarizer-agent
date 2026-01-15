@@ -22,12 +22,28 @@
 ```markdown
 # [콘텐츠 제목] - 핵심 노트
 
-<!-- YouTube/동영상인 경우 임베딩 (높이 720px) -->
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/[VIDEO_ID]" frameborder="0" allowfullscreen></iframe>
+<!-- YouTube/동영상인 경우 반응형 임베딩 -->
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 20px 0;">
+  <iframe
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+    src="https://www.youtube.com/embed/[VIDEO_ID]"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+  </iframe>
+</div>
 
 ## 메타 정보
 - 출처: [URL 또는 파일명]
+- 채널/저자: [[채널명 또는 저자명]]
 - 생성일: [날짜]
+
+## 태그
+#카테고리 #주제1 #주제2
+
+## 관련 개념
+- [[핵심개념1]] - 간단 설명
+- [[핵심개념2]] - 간단 설명
 
 ---
 
