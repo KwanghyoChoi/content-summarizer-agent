@@ -104,28 +104,18 @@ def transcribe_with_faster_whisper(
         from tqdm import tqdm
 
         # 디바이스 자동 선택
+        # faster-whisper는 ctranslate2 기반이므로 torch 없이 CUDA 사용 가능
         if device == 'auto':
             try:
                 import ctranslate2
-                # CUDA 실제 사용 가능 여부 테스트
                 cuda_types = ctranslate2.get_supported_compute_types('cuda')
                 if cuda_types and 'float16' in cuda_types:
-                    # CUDA 라이브러리 존재 여부 추가 확인
-                    try:
-                        import torch
-                        if torch.cuda.is_available():
-                            device = 'cuda'
-                            compute_type = 'float16'
-                        else:
-                            device = 'cpu'
-                            compute_type = 'int8'
-                    except:
-                        device = 'cpu'
-                        compute_type = 'int8'
+                    device = 'cuda'
+                    compute_type = 'float16'
                 else:
                     device = 'cpu'
                     compute_type = 'int8'
-            except:
+            except Exception:
                 device = 'cpu'
                 compute_type = 'int8'
         else:
