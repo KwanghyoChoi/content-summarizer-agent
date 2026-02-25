@@ -154,5 +154,6 @@ pip install openai-whisper opencv-python
 | Script | Purpose |
 |--------|---------|
 | `main.py` | Primary CLI with extraction |
+| `phased_pipeline.py` | 3-phase pipeline for long content |
 | `summarize.py` | Auto-detect source type |
 | `quick_note.py` | Interactive regeneration |

@@ -126,6 +126,45 @@ output/{title}_{source}_{date}_{format}.md
 | easy | 초보자용 요약 | 10-20% |
 | mindmap | 시각적 구조화 | 키워드 |
 
+## Phased Pipeline (긴 콘텐츠용)
+
+긴 동영상/PDF를 안전하게 처리하기 위한 3단계 파이프라인.
+각 단계가 독립적이므로 중간 실패 시 복구가 쉽습니다.
+
+```
+Phase 1: 추출 → transcript.txt (여기서 멈추고 확인)
+Phase 2: transcript.txt → 20K 청크별 → notes_partN.md
+Phase 3: 파트 병합 → final_notes.md
+```
+
+### CLI 사용법
+```bash
+# 전체 실행
+python phased_pipeline.py --video "./long_video.mp4"
+
+# 단계별 실행
+python phased_pipeline.py --phase 1 --video "./video.mp4"
+python phased_pipeline.py --phase 2 --work-dir ./output/my_video
+python phased_pipeline.py --phase 3 --work-dir ./output/my_video
+
+# 옵션
+--chunk-size 30000    # 청크 크기 변경
+--note-format essence # 노트 형식 변경
+--force               # 기존 파트 덮어쓰기
+--no-merge-ai         # AI 병합 대신 단순 병합
+```
+
+### 작업 디렉토리 구조
+```
+output/{title}_{source}_{date}/
+├── transcript.txt     # Phase 1 출력
+├── metadata.txt       # 메타 정보
+├── notes_part1.md     # Phase 2 출력
+├── notes_part2.md
+├── notes_partN.md
+└── final_notes.md     # Phase 3 출력
+```
+
 ## Error Handling
 
 ### 추출 실패
